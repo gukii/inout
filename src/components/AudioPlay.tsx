@@ -1,0 +1,71 @@
+
+// audio.play() is an async function, can t be interrupted by simple .pause()
+
+
+  export function playAudioPromise( audioRef:any ) {
+
+    const playPromise = audioRef?.current?.play()
+  
+    if (playPromise !== undefined) {
+  
+      playPromise.then( _ => {
+        console.log('audio paused..')
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      })
+      .catch(error => {
+        console.log('audio play err:', error)
+          // Auto-play was prevented
+          // Show paused UI.
+      });
+    }
+  }
+  
+  
+  export function playAudioFix( audioRef:any, promRef:any ) {
+  
+  
+    if (!audioRef.current.paused) {
+      if (promRef.current !== undefined) {
+  
+          promRef.current.then( _ => {
+            console.log('audio paused after p..')
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+          })
+          .catch(error => {
+            console.log('audio play err:', error)
+              // Auto-play was prevented
+              // Show paused UI.
+          });
+      } else {
+        console.log('audio paused without p..')
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+       }
+  
+    }
+    promRef.current = audioRef.current?.play()
+  
+  }
+  
+  export function playAudioPromiseUnhandled( audioRef:any ) {
+  
+  
+    if (!audioRef.current.paused) {
+      audioRef.current?.pause();
+      audioRef.current.currentTime = 0;
+    }
+    audioRef.current?.play()
+  
+  }
+  
+  export async function playAudioRepeat( audioRef:any, n=1, ms=300, promRef:any ) {
+        for (let i=n; i>0; i--) {
+            //playAudioPromiseUnhandled( audioRef )
+            playAudioFix( audioRef, promRef )
+  
+            if (n > 0) await new Promise( (res) => setTimeout( res, ms ))
+        }
+  }
+  
