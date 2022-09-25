@@ -1,3 +1,15 @@
+# try one of these:
+
+gukii.github.io/inout/
+
+gukii.github.io/inout/AppFormValidateOnBlur 
+gukii.github.io/inout/AppQrScannerTailwind 
+gukii.github.io/inout/AppQrScanner 
+gukii.github.io/inout/AppTanStackFilter
+gukii.github.io/inout/AppTanStackFilterEdit
+gukii.github.io/inout/AppTanStackFilterRowSelect 
+gukii.github.io/inout/AppTanStackFilterDiv
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -45,7 +45,7 @@ const RenderAlert = (msg:string) : ReactElement => {
   if ( !show ) return <span></span>
 */
 return(
-  <div className="-mt-50 z-50 bg-amber-300 backdrop-blur-xl z-20 rounded-lg p-1 shadow">
+  <div className="-mt-16 z-50 bg-amber-300 backdrop-blur-xl z-20 rounded-lg p-1 shadow">
       <div className="flex">
           <div className="truncate text-slate-800  text-sm inline-flex space-x-1 items-center">
             <svg height="1.5em" width="1.5em" aria-hidden="true" focusable="false" data-prefix="far" data-icon="arrow-alt-circle-right" className="w-7 h-7" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -202,7 +202,7 @@ function QrScan() {
 
 
         <button 
-          className={`rounded-xl ${started ? 'bg-red-300': 'bg-green-300'} shadow-lg`}
+          className={`p2 rounded-xl ${started ? 'bg-red-300': 'bg-green-300'} shadow-lg`}
           onClick={()=> {
             if (started) {
               if (!scannerRef.current) console.log('error, no scanner instance to stop..')
