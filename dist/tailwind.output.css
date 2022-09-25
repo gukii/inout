@@ -561,6 +561,14 @@ video {
   bottom: 1.25rem;
 }
 
+.top-\[-50px\] {
+  top: -50px;
+}
+
+.top-\[-250px\] {
+  top: -250px;
+}
+
 .z-20 {
   z-index: 20;
 }
@@ -569,8 +577,28 @@ video {
   z-index: 50;
 }
 
+.-m-\[150px\] {
+  margin: -150px;
+}
+
+.m-\[-150px\] {
+  margin: -150px;
+}
+
+.m-\[-250px\] {
+  margin: -250px;
+}
+
+.-mt-28 {
+  margin-top: -7rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+
+.mt-\[-150px\] {
+  margin-top: -150px;
 }
 
 .block {

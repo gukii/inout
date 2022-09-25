@@ -236,7 +236,7 @@ function QrScan() {
 
         { qrRes && RenderAlert(qrRes.data)}
 
-        <div style={{ height:"1em"}} />
+        <div style={{ height:".5em"}} />
 
         <button 
           className={`p-2 rounded-xl ${started ? 'bg-red-300': 'bg-green-300'} shadow-lg`}

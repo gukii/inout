@@ -1,18 +1,10 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-
-// npx tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.output.css --watch
-
-// yarn build
-// yarn deploy
-
-
-//import './App.css';
 import './tailwind.output.css'
 
-import App from './App';
-//import App from './AppTanStackFilter';
+import TanStackTableFilter from './components/TanStackTableFilterEdit';
 
 //import AppFormValidateOnBlur from './AppFormValidateOnBlur';
 
@@ -23,7 +15,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <TanStackTableFilter />
   </React.StrictMode>
 );
 
