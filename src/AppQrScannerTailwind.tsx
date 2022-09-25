@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -6,9 +5,9 @@ import './tailwind.output.css'
 
 import QrScannerTailwind from './components/QrScannerTailwind';
 
-//import AppFormValidateOnBlur from './AppFormValidateOnBlur';
 
 import reportWebVitals from './reportWebVitals';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
