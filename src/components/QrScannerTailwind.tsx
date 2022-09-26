@@ -1,6 +1,10 @@
 import { ReactElement, useState, Suspense, useRef, useEffect, useMemo, useCallback } from 'react';
 import QrScanner from 'qr-scanner'; // if installed via package and bundling with a module bundler like webpack or rollup
-import { playAudioRepeat } from './AudioPlay'
+import { playAudioRepeat, useAudio } from './AudioPlay'
+
+
+
+// audio.play() is an async function, can t be interrupted by simple .pause()
 
 
 // using a dong2.mp3 stored in "public" folder to beep on new QR code
@@ -60,6 +64,9 @@ return(
 
 
 function QrScan() {
+
+  const [ playAudio, pauseAudio, stopAudio ] = useAudio( "/maleThanks.mp3" )
+
 
   // ref for QR scanner instance
   const scannerRef = useRef<QrScanner>()
@@ -184,6 +191,9 @@ function QrScan() {
 
     return s
   }, [listRef.current] )
+
+
+
   
 
 
@@ -191,6 +201,18 @@ function QrScan() {
 
   return (
     <>        
+        <audio ref={audioInRef} preload="auto" >
+          <source 
+            src="/maleHi.mp3" 
+            type="audio/mpeg"/>
+        </audio>
+
+        <audio ref={audioOutRef} preload="auto" >
+          <source 
+            src="/maleThanks.mp3" 
+            type="audio/mpeg"/>
+        </audio>
+
         <div ref={videoContainerRef} id="video-container" style={{ opacity: started ? 1 : 0 }} >
             <video ref={videoRef} id="qr-video" />
             { qrRes && RenderAlert(qrRes.data)}
@@ -204,6 +226,10 @@ function QrScan() {
         <button 
           className={`z-50 p-2 rounded-xl ${started ? 'bg-red-300': 'bg-green-300'} shadow-lg`}
           onClick={()=> {
+            playAudioRepeat( audioOutRef, 1, 300, promRef )
+            //playAudio()
+
+            /*
             if (started) {
               if (!scannerRef.current) console.log('error, no scanner instance to stop..')
               scannerRef.current?.stop()
@@ -212,6 +238,7 @@ function QrScan() {
               scannerRef.current?.start()              
             }
             setStarted(  p => !p )
+            */
           }}>
             {started ? 'Stop' : 'Scan QR code'}
         </button>
@@ -220,17 +247,7 @@ function QrScan() {
 
 
 
-        <audio ref={audioInRef} >
-          <source 
-            src="/maleHi.mp3" 
-            type="audio/mpeg"/>
-        </audio>
 
-        <audio ref={audioOutRef} >
-          <source 
-            src="/maleThanks.mp3" 
-            type="audio/mpeg"/>
-        </audio>
 
         <hr />
 

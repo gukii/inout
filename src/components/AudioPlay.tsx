@@ -1,3 +1,4 @@
+import {  useRef, useEffect } from 'react';
 
 // audio.play() is an async function, can t be interrupted by simple .pause()
 
@@ -45,6 +46,7 @@
        }
   
     }
+
     promRef.current = audioRef.current?.play()
   
   }
@@ -61,6 +63,7 @@
   }
   
   export async function playAudioRepeat( audioRef:any, n=1, ms=300, promRef:any ) {
+      console.log('should be playing sound..')
         for (let i=n; i>0; i--) {
             //playAudioPromiseUnhandled( audioRef )
             playAudioFix( audioRef, promRef )
@@ -69,3 +72,89 @@
         }
   }
   
+
+
+  // const [ playAudio, pauseAudio, stopAudio ] = useAudio( "./asdf.mp3" )
+
+  export const useAudio = ( url:string ) => {
+
+    //const a = useRef<HTMLMediaElement>() 
+    const a = useRef<HTMLAudioElement>() 
+    const promRef = useRef<any>() 
+    
+
+    useEffect( ()=> {
+
+      if (!url) return
+
+      console.log('url:', url)
+
+      a.current = new Audio( url )
+      a.current.load()
+
+      //playAudio()
+
+      //return () => a.current.pause()
+
+    }, [url] )
+
+
+    const pauseAudio = ( reset=false ) => {
+      if (!a.current.paused) {
+        if (promRef.current !== undefined) {
+
+            promRef.current.then( _ => {
+              console.log('audio paused after p..')
+              a.current.pause();
+              if (reset) a.current.currentTime = 0;
+            })
+            .catch(error => {
+              console.log('audio play err:', error)
+                // Auto-play was prevented
+                // Show paused UI.
+            });
+        } else {
+          console.log('audio paused without p..')
+          a.current.pause();
+          if (reset) a.current.currentTime = 0;
+        }
+      }
+    }
+
+
+    const stopAudio = () => {
+      pauseAudio( true )
+    }
+
+
+    const playAudio = ()=> {
+
+      stopAudio()
+      promRef.current = a.current?.play()
+    }
+
+
+    return [ playAudio, pauseAudio, stopAudio ]
+
+  }
+
+
+
+
+
+  /*
+    const playAudio = ()=> {
+      if (!a.current) return
+      promRef.current = a.current.play()
+      if (promRef.current  !== undefined) {
+        promRef.current 
+          .then(_ => {
+            // autoplay started
+          })
+          .catch(err => {
+            // catch dom exception
+            console.info(err)
+          })
+      }
+    }
+*/

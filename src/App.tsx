@@ -1,8 +1,10 @@
 import React from 'react';
 //import './App.css';
 
-import Comp from './components/QrScannerTailwind'
+//import Comp from './components/QrScannerTailwind'
 //import Comp from './components/QrScanner'
+
+import Comp from './components/QrScannerSimple'
 
 //import Comp from './components/TanStackTableFilter'
 //import Comp from './components/TanStackTableFilterRowSelect'

@@ -79,8 +79,8 @@ function QrScan() {
   const videoContainerRef = useRef() // not really used yet
   const videoRef = useRef<HTMLVideoElement>() // for QR code window
   //const audioRef = useRef<HTMLAudioElement>() // for beep effect // old
-  const audioInRef = useRef<HTMLAudioElement>() // for beep IN effect
-  const audioOutRef = useRef<HTMLAudioElement>() // for beep OUT effect
+  const audioInRef = useRef<HTMLMediaElement>() // for beep IN effect
+  const audioOutRef = useRef<HTMLMediaElement>() // for beep OUT effect
 
   const promRef = useRef<any>() // for beep effect, hacking async play promise 
 
