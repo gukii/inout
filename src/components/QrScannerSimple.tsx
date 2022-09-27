@@ -1,7 +1,18 @@
 import { useState, Suspense, useRef, useEffect, useMemo, useCallback } from 'react';
 import QrScanner from 'qr-scanner'; // if installed via package and bundling with a module bundler like webpack or rollup
 
+import { useAudio } from './AudioPlay'
 
+const inSound = require("../tmpAudio/femaleIn.mp3")
+const outSound = require("../tmpAudio/femaleOut.mp3")
+
+
+
+//import inSound from '/public/maleHi.mp3'
+//import outSound from '../../public/maleBye.mp3'
+
+//import inSound2 from '../tmpAudio/femaleIn.mp3'
+//import outSound2 from '../tmpAudio/femaleOut.mp3'
 
 // using a dong2.mp3 stored in "public" folder to beep on new QR code
 
@@ -93,67 +104,8 @@ const limitedText = {
     textOverflow: "ellipsis"
 } as const
 
-export const useAudio = ( url:string ) => {
-
-//const a = useRef<HTMLMediaElement>() 
-const a = useRef<HTMLAudioElement>() 
-const promRef = useRef<any>() 
 
 
-useEffect( ()=> {
-
-    if (!url) return
-
-    console.log('url:', url)
-
-    a.current = new Audio( url )
-    a.current.load()
-
-    //playAudio()
-
-    //return () => a.current.pause()
-
-}, [url] )
-
-
-const pauseAudio = ( reset=false ) => {
-    if (!a.current.paused) {
-    if (promRef.current !== undefined) {
-
-        promRef.current.then( _ => {
-            console.log('audio paused after p..')
-            a.current.pause();
-            if (reset) a.current.currentTime = 0;
-        })
-        .catch(error => {
-            console.log('audio play err:', error)
-            // Auto-play was prevented
-            // Show paused UI.
-        });
-    } else {
-        console.log('audio paused without p..')
-        a.current.pause();
-        if (reset) a.current.currentTime = 0;
-    }
-    }
-}
-
-
-const stopAudio = () => {
-    pauseAudio( true )
-}
-
-
-const playAudio = ()=> {
-
-    stopAudio()
-    promRef.current = a.current?.play()
-}
-
-
-return [ playAudio, pauseAudio, stopAudio ]
-
-}
 
 
 // using a dong2.mp3 stored in "public" folder to beep on new QR code
@@ -267,8 +219,13 @@ interface timeMap {
 
 function QrScan() {
 
-  const [ playIn ] = useAudio( "/maleHi.mp3" )
-  const [ playOut ] = useAudio( "/maleThanks.mp3" )
+
+
+  const [ playIn ] = useAudio( inSound )
+  const [ playOut ] = useAudio( outSound )
+
+  //const [ playIn ] = useAudio( "/maleHi.mp3" )
+  //const [ playOut ] = useAudio( "/maleThanks.mp3" )
 
   //const [ playIn ] = useAudio( window.location.href+"/maleHi.mp3" )
   //const [ playOut ] = useAudio( window.location.href+"/maleThanks.mp3" )
@@ -451,15 +408,22 @@ function QrScan() {
   */
   
 
+        //         <div ref={videoContainerRef} id="video-container" style={{ maxHeight: started ?  "90vh" : "3em", opacity: started ? 1 : 0 }} >
+//         <div ref={videoContainerRef} id="video-container" className={`${ started ? "max-h-[90vh] opacity-100" : "opacity-0 max-h-12"}`}  >
+
+
   return (
     <div>        
 
-        <div ref={videoContainerRef} id="video-container" style={{ maxHeight: started ?  "70vh" : "3em", opacity: started ? 1 : 0 }} >
+        <div ref={videoContainerRef} id="video-container" style={{ 
+          maxHeight: started ?  "90vh" : "3em", 
+          opacity: started ? 1 : 0 
+        }} >
             <video ref={videoRef} id="qr-video" style={{ zIndex: -1 }} />
         </div>
 
 
-        <div className={`ml-0 flex justify-around ${!started ?? "hidden" } -mt-8 min-h-[2em] font-bold text-slate-50 z-30 relative w-screen`}>
+        <div className={`ml-0 flex justify-around ${!started ?? "hidden" } -mt-8 min-h-[2em] font-bold text-slate-50 shadow-md z-30 relative w-screen`}>
           
           <div className="h-6 ">
             in:{ listRef.current.size } 
