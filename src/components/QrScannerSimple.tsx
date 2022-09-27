@@ -411,26 +411,28 @@ function QrScan() {
         //         <div ref={videoContainerRef} id="video-container" style={{ maxHeight: started ?  "90vh" : "3em", opacity: started ? 1 : 0 }} >
 //         <div ref={videoContainerRef} id="video-container" className={`${ started ? "max-h-[90vh] opacity-100" : "opacity-0 max-h-12"}`}  >
 
-
+// bg-white p-1 text-black
   return (
     <div>        
-
         <div ref={videoContainerRef} id="video-container" style={{ 
           maxHeight: started ?  "90vh" : "3em", 
           opacity: started ? 1 : 0 
         }} >
+
+          { <div className="w-full bg-stone-400 text-center">{qrRes?.data}</div> }
+
             <video ref={videoRef} id="qr-video" style={{ zIndex: -1 }} />
         </div>
 
 
         <div className={`ml-0 flex justify-around ${!started ?? "hidden" } -mt-8 min-h-[2em] font-bold text-slate-50 shadow-md z-30 relative w-screen`}>
           
-          <div className="h-6 ">
+          <div className="h-6 text-xl text-green-400">
             in:{ listRef.current.size } 
           </div>
           <div className="h-8 ">
               <button 
-                className={`z-50 p-2 rounded-xl text-black ${started === 1 ? 'bg-red-100': 'bg-green-300'} ${started === 2 ? 'opacity-25': 'bg-green-100'} shadow-lg`}
+                className={`z-50 p-3 rounded-xl text-xl text-black ${started === 1 ? 'bg-red-100': 'bg-green-300'} ${started === 2 ? 'opacity-25': 'bg-green-100'} shadow-lg`}
                 disabled={started === 2}
                 onClick={()=> {
                   if (started) {
@@ -447,7 +449,7 @@ function QrScan() {
 
 
               <button 
-                className={`z-50 p-2 rounded-xl text-black ${started === 2 ? 'bg-red-100': 'bg-red-300'} ${started === 1 ? 'opacity-25': 'bg-green-100'} shadow-lg`}
+                className={`z-50 p-3 rounded-xl text-black ${started === 2 ? 'bg-red-100': 'bg-red-300'} ${started === 1 ? 'opacity-25': 'bg-green-100'} shadow-lg`}
                 disabled={started === 1}
                 onClick={()=> {
                   if (started) {
@@ -464,7 +466,7 @@ function QrScan() {
                   {started === 2 ? 'Stop' : 'CheckOut'}
               </button>
           </div>
-          <div className="h-6 ">
+          <div className="h-8 p-1 text-red-400 text-xl">
             out:{ outCount }
           </div>
 
